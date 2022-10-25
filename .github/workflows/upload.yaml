@@ -1,7 +1,7 @@
 name: CI-CD-Pipeline-to-deploy-angularapp-to-awsS3
 env:
   AMPLIFY_PACKAGE_S3_BUCKET_NAME: "angular-testing-s3"
-  AWS_REGION: "us-east-1"
+  #AWS_REGION: "us-east-1"
   #APP_ID: "ABC123xyz" 
   PACKAGE_NAME: "L&TFront"
 
@@ -36,7 +36,7 @@ jobs:
       run: cd dist && zip -r $PACKAGE_NAME * -x *.git*
 
     - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@master
+      uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
