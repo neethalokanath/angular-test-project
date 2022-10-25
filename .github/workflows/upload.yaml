@@ -39,8 +39,8 @@ jobs:
         aws-region: $AWS_REGION
     
     - name: Copy Deployment Package to AWS S3
-        run: |
-          cd dist && \
-          aws s3 cp $PACKAGE_NAME s3://$AMPLIFY_PACKAGE_S3_BUCKET_NAME
+      run: |
+        cd dist && \
+        aws s3 cp $PACKAGE_NAME s3://$AMPLIFY_PACKAGE_S3_BUCKET_NAME
 
 
