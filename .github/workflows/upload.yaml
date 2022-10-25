@@ -26,7 +26,7 @@ jobs:
       run: npm install
     
     - name: Build
-      run: npm run build:prod
+      run: npm run build:L&TFront
     
     - name: Create Zip Deployment Package
       run: cd dist && zip -r $PACKAGE_NAME * -x *.git*
