@@ -1,4 +1,10 @@
-name: Sync S3 Bucket
+name: CI-CD-Pipeline-to-deploy-angularapp-to-awsS3
+env:
+  AMPLIFY_PACKAGE_S3_BUCKET_NAME: "angular-testing-s3"
+  AWS_REGION: "us-east-1"
+  #APP_ID: "ABC123xyz" 
+  PACKAGE_NAME: "L&TFront"
+
 on: 
   push:
     branches:
@@ -6,14 +12,36 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
-    - uses: actions/checkout@master
-    - uses: awact/s3-action@master
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
       with:
-        args: --acl public-read --follow-symlinks --delete
-      env:
-        AWS_REGION: 'us-east-1'
-        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Build
+      run: npm run build:prod
+    
+    - name: Create Zip Deployment Package
+      run: cd dist && zip -r $PACKAGE_NAME * -x *.git*
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
+        aws-region: $AWS_REGION
+    
+    - name: Copy Deployment Package to AWS S3
+        if: success()
+        run: |
+          cd dist && \
+          aws s3 cp $PACKAGE_NAME s3://$AMPLIFY_PACKAGE_S3_BUCKET_NAME
+
+
