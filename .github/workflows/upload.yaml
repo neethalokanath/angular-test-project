@@ -10,13 +10,15 @@ on:
     branches:
     - master
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
+permissions:
       packages: write
       contents: read
       id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
     steps:
     - name: Checkout
       uses: actions/checkout@master
@@ -38,8 +40,8 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        audience: sts.amazonaws.com
-        role-to-assume: arn:aws:iam::497896953208:role/dev_role
+        #audience: sts.amazonaws.com
+        arn:aws:iam::497896953208:role/dev_role_s3activity
         #aws-access-key-id: ${{ secrets.ACCESS_KEY_ID }}
         #aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
         aws-region: us-east-1
