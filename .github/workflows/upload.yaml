@@ -16,7 +16,6 @@ permissions:
       id-token: write
 
 jobs:
-  deploy:
   ci-pipeline:
     runs-on: ubuntu-latest
     
