@@ -67,7 +67,7 @@ jobs:
       run: |
         aws amplify start-deployment \
           --app-id $APP_ID \
-          --branch-name manual \
+          --branch-name dev8795 \
           --source-url s3://$AMPLIFY_PACKAGE_S3_BUCKET_NAME/$PACKAGE_NAME.zip
 
 
