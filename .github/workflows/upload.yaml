@@ -49,6 +49,6 @@ jobs:
     - name: Copy Deployment Package to AWS S3
       run: |
         cd dist && \
-        aws s3 cp $PACKAGE_NAME s3://$AMPLIFY_PACKAGE_S3_BUCKET_NAME
+        aws s3 cp $PACKAGE_NAME.zip s3://$AMPLIFY_PACKAGE_S3_BUCKET_NAME
 
 
