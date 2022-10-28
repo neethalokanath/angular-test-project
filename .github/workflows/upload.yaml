@@ -2,7 +2,7 @@ name: CI-CD-Pipeline-to-deploy-angularapp-to-awsS3
 env:
   AMPLIFY_PACKAGE_S3_BUCKET_NAME: "angular-testing-s3"
   #AWS_REGION: "us-east-1"
-  APP_ID: "app6866" 
+  APP_ID: "d2mcg10i48bgnv" 
   PACKAGE_NAME: "hello-world"
 
 on: 
