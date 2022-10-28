@@ -35,7 +35,7 @@ jobs:
       run: npm run build
     
     - name: Create Zip Deployment Package
-      run: cd dist && zip -r $PACKAGE_NAME * -x *.git*
+      run: cd dist/$PACKAGE_NAME && zip -r $PACKAGE_NAME * -x *.git*
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -48,7 +48,7 @@ jobs:
     
     - name: Copy Deployment Package to AWS S3
       run: |
-        cd dist && \
+        cd dist/$PACKAGE_NAME && \
         aws s3 cp $PACKAGE_NAME.zip s3://$AMPLIFY_PACKAGE_S3_BUCKET_NAME
 
 
